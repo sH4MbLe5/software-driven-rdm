@@ -206,9 +206,11 @@ class MarkdownParser(SchemaParser):
 
     def _check_mandatory_options(self) -> bool:
         """Checks if an attribute covers all mandatory fields/options"""
-        if not self.attr:
-            return False
-        return all(option in self.attr.keys() for option in MANDATORY_OPTIONS)
+        return (
+            all(option in self.attr.keys() for option in MANDATORY_OPTIONS)
+            if self.attr
+            else False
+        )
 
     def _set_up_new_attribute(self, line):
         """Sets up a new attribute based on the Markdown definition '- __Name__'."""

@@ -24,24 +24,15 @@ def change_dict_keys(dictionary, fun) -> dict:
         elif isinstance(item, list):
             try:
                 value = [change_dict_keys(val, fun)[key] for val in dict(item)]
-            except AttributeError:
+            except (AttributeError, KeyError):
                 # TODO Find a better solution to handle the "force_list" effect
                 value = item
-            except KeyError:
-                value = item
-
         else:
             value = item
 
         nu_dict[fun(key)] = value
 
     return nu_dict
-
-    return {
-        fun(key):
-        change_dict_keys(item, fun) if isinstance(item, dict) else item
-        for key, item in dictionary.items()
-    }
 
 
 def generate_documentation(fields) -> str:

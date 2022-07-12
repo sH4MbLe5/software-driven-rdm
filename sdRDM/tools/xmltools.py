@@ -30,7 +30,7 @@ class XMLWriter:
 
             # Treat all those cases
             if xml == "attribute":
-                attributes.update({name: str(value)})
+                attributes[name] = str(value)
 
             elif xml == "element":
                 elements.append(cls._make_element(

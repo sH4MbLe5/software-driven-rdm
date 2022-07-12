@@ -59,15 +59,15 @@ def write_metadata(definitions, module_doc) -> str:
     module_objs = {"docstring": module_doc}
     for obj in definitions:
         attr_meta = {}
+        mermaid_keys = [
+            "required",
+            "type",
+            "name",
+        ]
         for attr in obj["attributes"]:
 
             # Build new dictionary w/o mermaid attrs
             attr_name = attr["name"]
-            mermaid_keys = [
-                "required",
-                "type",
-                "name",
-            ]
             attr_meta[attr_name] = {
                 key: item for key, item in attr.items() if key not in mermaid_keys
             }

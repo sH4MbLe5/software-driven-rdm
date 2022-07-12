@@ -9,5 +9,5 @@ class SchemaParser(ABC):
     module_name: str = ""
 
     @abstractclassmethod
-    def parse(cls, path: str):
+    def parse(self, path: str):
         raise NotImplementedError()

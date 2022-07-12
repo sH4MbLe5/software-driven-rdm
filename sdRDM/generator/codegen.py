@@ -305,17 +305,13 @@ class MermaidClass:
         for dtype, multiple, attr_name, required in raw_attrs:
             # TODO add special Type mapping
             attr_metadata = descriptions["attributes"][attr_name]
-            attr_dict = {"dtype": dtype, **attr_metadata}
+            attr_dict = {
+                "dtype": dtype,
+                **attr_metadata,
+                "multiple": bool(multiple),
+                "required": bool(required),
+            }
 
-            if multiple:
-                attr_dict["multiple"] = True
-            else:
-                attr_dict["multiple"] = False
-
-            if required:
-                attr_dict["required"] = True
-            else:
-                attr_dict["required"] = False
 
             attributes[attr_name] = attr_dict
 
@@ -404,9 +400,11 @@ def create_dependency_tree(mermaid: str):
         nodes = {}
         root = next(
             iter(
-                set(start for start, _ in relations) - set(end for _, end in relations)
+                {start for start, _ in relations}
+                - {end for _, end in relations}
             )
         )
+
         for start, end in relations:
             nodes.setdefault(start, {})[end] = nodes.setdefault(end, {})
 
@@ -414,14 +412,14 @@ def create_dependency_tree(mermaid: str):
 
         # Get all those classes that have already been found
         # in the first iteration of the tree building
-        used_classes = [name for name in get_keys(result)]
+        used_classes = list(get_keys(result))
 
         # Remove all those relations that included the root
         relations = list(
             filter(lambda relation: relation[1] not in used_classes, relations)
         )
 
-        results.update(result)
+        results |= result
 
     return results
 
@@ -506,7 +504,7 @@ def _write_dependent_classes(tree: dict, classes: dict, dirpath: str, inherit=No
 def _render_class(cls_obj, dirpath, inherit, classes):
     """Renders imports, attributes and methods of a class"""
 
-    path = os.path.join(dirpath, cls_obj.fname + ".py")
+    path = os.path.join(dirpath, f"{cls_obj.fname}.py")
 
     with open(path, "w") as file:
         attributes = cls_obj._render_class_attrs(inherit=inherit)

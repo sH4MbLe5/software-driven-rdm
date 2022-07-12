@@ -36,9 +36,6 @@ def generate(
     for file in specifications:
         extension = os.path.basename(file).split(".")[-1]
 
-        if extension not in FORMAT_MAPPING:
-            pass
-
         # Generate schemata
         format_type = FORMAT_MAPPING[extension]
         mermaid_path, metadata_path = generate_schema(file, schema_path, format_type)
