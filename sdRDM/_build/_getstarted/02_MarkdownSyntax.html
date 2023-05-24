@@ -1,0 +1,415 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Biocatalyst &#8212; sdRDM 0.0.4 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h2 align="center"><p>Markdown Example for sdRDM</p>
+</h2><p align="center"><p>This is an example of how to set up a data model using the
+Software-Driven Research Data Management (sdRDM) library which is based
+on abstract object models. Furthermore, the sdRDM library supports the
+conversion of data models defined in the Markdown format to python
+objects.</p>
+</p><p>The data model defined in the Markdown format is structured by using
+different heading levels from 1 to 3.The following conventions are used:</p>
+<h3><p>Heading structure</p>
+</h3><ul class="simple">
+<li><p>The <strong>Title of the data model</strong> is denoted by a heading level 1 <code class="docutils literal notranslate"><span class="pre">#</span></code>
+and is the root element of the data model.</p></li>
+<li><p><strong>Object groups</strong> are denoted by a heading level 2 <code class="docutils literal notranslate"><span class="pre">##</span></code> and can
+comprise multiple <strong>Objects</strong>.</p></li>
+<li><p><strong>Enumerations</strong> is denoted by a heading level 2 <code class="docutils literal notranslate"><span class="pre">##</span></code> as well and
+holds all the <strong>Enumeration Objects</strong>.</p></li>
+</ul>
+<p>Note, that <strong>Object group</strong> classes can be named arbitrarily and
+multiple are allowed, while only one <strong>Enumerations</strong> class is allowed
+and it is required to have the name <strong>Enumerations</strong>.</p>
+<ul class="simple">
+<li><p>The individual <strong>Objects</strong> are started with a heading level 3 <code class="docutils literal notranslate"><span class="pre">###</span></code>
+and are gathered under a <strong>Object group</strong> heading level 2.</p></li>
+<li><p><strong>Enumerations</strong> are started with a heading level 3 <code class="docutils literal notranslate"><span class="pre">###</span></code> as well
+and are gathered under the <strong>Enumerations</strong> heading level 2.</p></li>
+</ul>
+<h3><p>Attributes</p>
+</h3><ul class="simple">
+<li><p>Each <strong>object</strong> contains <strong>attributes</strong> as a list → <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">attribute</span></code>
+which describe the object.</p></li>
+<li><p>Attributes of an <strong>Enumeration Object</strong> are gathered between a triple
+apostrophe and a tailing ‘python’ → ```python an end with a triple
+apostrophe → ```</p></li>
+<li><p><strong>Required attributes</strong> are denoted with a double underscore →
+<code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">__attribute__</span></code></p></li>
+<li><p>Each field has <strong>options</strong> as a list of name to value mapping →
+<code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">Type:</span> <span class="pre">string</span></code></p></li>
+<li><p>In order to create an <strong>inheritance</strong> of attributes to another
+object, the object definition additionally includes the name of the
+parent object in italic wrapped with brackets →
+<code class="docutils literal notranslate"><span class="pre">###</span> <span class="pre">Object</span> <span class="pre">[_ParentObject_]</span></code></p></li>
+</ul>
+<h3><p>Properties</p>
+</h3><p>Each attribute in an object can hold multiple properties relevant for
+mapping to another data model (e.g. a standardized format) and general
+information such as its type and description. In the following is a
+collection of all native and required properties:</p>
+<ul class="simple">
+<li><p><strong>Type</strong> - Required property to denote the data type. Multiple data
+types are allowed and can be denoted as a list or seperated by
+commata. Please note in particuar, that they can also be other
+objects defined in this document. To keep a better overview,
+especially in comprehesive markdown files, links can be set that
+point to the corresponding <strong>Object</strong> by denoting their name in
+parantheses. → <code class="docutils literal notranslate"><span class="pre">(object</span> <span class="pre">name)</span></code>. The data types available besides
+<strong>Objects</strong> are as a list at the bottom line:</p></li>
+<li><p><strong>Multiple</strong> - Whether or not this attribute can contain multiple
+values. Setting to <code class="docutils literal notranslate"><span class="pre">True</span></code> will result in a <code class="docutils literal notranslate"><span class="pre">List[dtype]</span></code>
+annoatation in the software.</p></li>
+<li><p><strong>Description</strong> - Required option to describe the attribute. This
+should be a brief description that explains what the attribute is
+about.</p></li>
+<li><p><strong>References</strong> - Optional property to create a reference to foo.</p></li>
+<li><p><strong>XML</strong> - Optional property to bar.</p></li>
+</ul>
+<p>In the following an example data model is defined using above rules.
+Feel free to use this example also as a template for your own
+application.</p>
+<hr class="docutils" />
+<section id="biocatalyst">
+<h1>Biocatalyst<a class="headerlink" href="#biocatalyst" title="Permalink to this headline">¶</a></h1>
+<p>Do fugiat mollit sit duis deserunt dolor ex. Quis do occaecat dolor
+consectetur nostrud occaecat eu sint aute. Laboris commodo laborum
+proident id laboris cupidatat amet commodo tempor laborum sint occaecat
+mollit velit.</p>
+<section id="objects">
+<h2>Objects<a class="headerlink" href="#objects" title="Permalink to this headline">¶</a></h2>
+<section id="biocatalystbase">
+<h3>BiocatalystBase<a class="headerlink" href="#biocatalystbase" title="Permalink to this headline">¶</a></h3>
+<p>Do fugiat mollit sit duis deserunt dolor ex. Quis do occaecat dolor
+consectetur nostrud occaecat eu sint aute. Laboris commodo laborum
+proident id laboris cupidatat amet commodo tempor laborum sint occaecat
+mollit velit.</p>
+<ul class="simple">
+<li><p>name</p>
+<ul>
+<li><p>Type: string</p></li>
+<li><p>Description: Name of the biocatalyst</p></li>
+</ul>
+</li>
+<li><p>ecnumber</p>
+<ul>
+<li><p>Type: string</p></li>
+<li><p>Description: Code used to determine the family of a protein.</p></li>
+</ul>
+</li>
+<li><p>reaction</p>
+<ul>
+<li><p>Type: string</p></li>
+<li><p>Description: Reaction in which the biocatalyst is activ.</p></li>
+</ul>
+</li>
+<li><p>sequence</p>
+<ul>
+<li><p>Type: string</p></li>
+<li><p>Description: Amino acid sequence of the biocatalyst.</p></li>
+</ul>
+</li>
+<li><p>host_organism</p>
+<ul>
+<li><p>Type: string</p></li>
+<li><p>Description: Organism used for expression.</p></li>
+</ul>
+</li>
+<li><p>source_organism</p>
+<ul>
+<li><p>Type: string</p></li>
+<li><p>Description: Organism the biocatalyst originates from.</p></li>
+</ul>
+</li>
+<li><p>post_translational_mods</p>
+<ul>
+<li><p>Type: string</p></li>
+<li><p>Description: Post-translational modifications that were made.</p></li>
+</ul>
+</li>
+<li><p>production_procedure</p>
+<ul>
+<li><p>Type: string</p></li>
+<li><p>Description: Procedure on how the biocatalyst was
+synthesized/expressed.</p></li>
+</ul>
+</li>
+<li><p>isoenzyme</p>
+<ul>
+<li><p>Type: string</p></li>
+<li><p>Description: Isoenzyme of the biocatalyst.</p></li>
+</ul>
+</li>
+<li><p>tissue</p>
+<ul>
+<li><p>Type: string</p></li>
+<li><p>Description: Tissue in which the reaction is happening.</p></li>
+</ul>
+</li>
+<li><p>localisation</p>
+<ul>
+<li><p>Type: string</p></li>
+<li><p>Description: Localisation of the biocatalyst.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="solublebiocatalyst-biocatalystbase">
+<h3>SolubleBiocatalyst [<em>BiocatalystBase</em>]<a class="headerlink" href="#solublebiocatalyst-biocatalystbase" title="Permalink to this headline">¶</a></h3>
+<p>Irure dolore dolore non sit adipisicing anim commodo est laborum.
+Proident do do velit eiusmod. Amet aliquip mollit aliqua voluptate eu.
+Proident ut id Lorem fugiat fugiat cillum ex. Aliqua excepteur laborum
+quis qui minim esse. Proident magna nostrud pariatur eiusmod nisi
+excepteur cillum sunt ad deserunt sint culpa ut proident. Esse ex qui
+occaecat aliquip ipsum exercitation amet ullamco laborum ea commodo
+exercitation do.</p>
+<ul class="simple">
+<li><p>storage</p>
+<ul>
+<li><p>Type: StorageConditions</p></li>
+<li><p>Multiple: True</p></li>
+<li><p>Description: How the soluble biocatalyst has been stored.</p></li>
+</ul>
+</li>
+<li><p>concentration</p>
+<ul>
+<li><p>Type: posfloat</p></li>
+<li><p>Description: Concentration of the biocatalyst.</p></li>
+</ul>
+</li>
+<li><p>concentration_det_method</p>
+<ul>
+<li><p>Type: string</p></li>
+<li><p>Description: Method on how the concentration has been determined.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="immobilisedcatalyst-solublebiocatalyst">
+<h3>ImmobilisedCatalyst [<em>SolubleBiocatalyst</em>]<a class="headerlink" href="#immobilisedcatalyst-solublebiocatalyst" title="Permalink to this headline">¶</a></h3>
+<p>Laboris aliquip cupidatat id aliqua magna. Minim consectetur enim dolor
+qui laborum aute nisi. Sit quis aute aliquip labore anim quis consequat
+consequat anim nulla consequat in Lorem. Fugiat cupidatat nostrud
+nostrud enim in. Proident in fugiat excepteur elit quis laboris nostrud
+veniam cillum elit culpa. Excepteur qui irure ipsum eu. Officia
+exercitation ut dolor anim nulla Lorem ut incididunt amet aute do.</p>
+<ul class="simple">
+<li><p>purification</p>
+<ul>
+<li><p>Type: string</p></li>
+<li><p>Description: How the biocatalyst was purified.</p></li>
+</ul>
+</li>
+<li><p>immobilisation_procedure</p>
+<ul>
+<li><p>Type: string</p></li>
+<li><p>Description: How the biocatalyst was immobilised</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="crudecellextract-solublebiocatalyst">
+<h3>CrudeCellExtract [<em>SolubleBiocatalyst</em>]<a class="headerlink" href="#crudecellextract-solublebiocatalyst" title="Permalink to this headline">¶</a></h3>
+<p>Fugiat fugiat nulla mollit officia exercitation adipisicing et labore
+proident nostrud proident fugiat. Voluptate esse mollit nulla tempor
+proident laborum et voluptate eu sit commodo. Elit consequat consectetur
+excepteur nulla irure qui. Proident labore esse ipsum Lorem eiusmod
+labore tempor consequat est esse deserunt. Fugiat aliqua sit tempor
+incididunt qui.</p>
+<ul class="simple">
+<li><p>cell_disruption_process</p>
+<ul>
+<li><p>Type: string</p></li>
+<li><p>Description: Method used to disrupt cells.</p></li>
+</ul>
+</li>
+<li><p>purity_determination</p>
+<ul>
+<li><p>Type: string</p></li>
+<li><p>Description: Method that was used to determine the purity of the
+extract.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="wholecell-biocatalystbase">
+<h3>WholeCell [<em>BiocatalystBase</em>]<a class="headerlink" href="#wholecell-biocatalystbase" title="Permalink to this headline">¶</a></h3>
+<p>Fugiat dolor enim aute dolore tempor consectetur commodo commodo
+occaecat pariatur aute. Incididunt aliqua do ipsum proident do aute
+cupidatat tempor voluptate mollit eiusmod sunt. Quis duis mollit anim ex
+nulla enim minim. Incididunt qui commodo cupidatat occaecat dolor ipsum
+excepteur sint fugiat minim. Enim ipsum adipisicing ut proident enim
+sunt non.</p>
+<ul class="simple">
+<li><p>harvesting_method</p>
+<ul>
+<li><p>Type: string</p></li>
+<li><p>Description: How the cells were harvested.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="storageconditions">
+<h3>StorageConditions<a class="headerlink" href="#storageconditions" title="Permalink to this headline">¶</a></h3>
+<p>Ut aute ut Lorem veniam proident. Laborum do nisi ut eiusmod in nostrud
+proident. Commodo nulla ipsum commodo culpa aliqua dolore. Labore
+exercitation eiusmod ea do tempor. Eiusmod enim mollit sit enim eiusmod
+anim excepteur veniam culpa minim dolor. Labore aliquip sint laboris
+quis mollit nostrud cillum dolore elit sunt pariatur aliquip.</p>
+<ul class="simple">
+<li><p>temperature</p>
+<ul>
+<li><p>Type: float</p></li>
+<li><p>Description: Temperature at which the enzyme is stored.</p></li>
+</ul>
+</li>
+<li><p>storing_start</p>
+<ul>
+<li><p>Type: date</p></li>
+<li><p>Description: Date when catalyst was put into storage.</p></li>
+</ul>
+</li>
+<li><p>removing</p>
+<ul>
+<li><p>Type: date</p></li>
+<li><p>Description: Date when catalyst was removed from storage.</p></li>
+</ul>
+</li>
+<li><p>rethawing</p>
+<ul>
+<li><p>Type: date</p></li>
+<li><p>Description: Date when catalyst was rethawed from storage.</p></li>
+</ul>
+</li>
+<li><p>thawing_process</p>
+<ul>
+<li><p>Type: date</p></li>
+<li><p>Description: Method of thawing.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="enumerations">
+<h2>Enumerations<a class="headerlink" href="#enumerations" title="Permalink to this headline">¶</a></h2>
+<section id="units">
+<h3>Units<a class="headerlink" href="#units" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">MOLPERLITER</span> <span class="o">=</span> <span class="s1">&#39;mol / L&#39;</span>
+<span class="n">KELVIN</span> <span class="o">=</span> <span class="s1">&#39;K&#39;</span>
+</pre></div>
+</div>
+<p>str, string, float, int, integer, bytes, Email, Str, Email, HttpUrl,
+HttpURL, httpurl, AnyHttpUrl, AnyHttpURL, anyhttpurl, AnyUrl, URL,
+posfloat, PositiveFloat, positivefloat, date, datetime, bool, boolean,
+Decimal, decimal, Enum, enum, Path, path, Any, any, Callable, callable,
+FrozenSet, frozenset, Optional, optional, Pattern, pattern, UUID, uuid,
+NoneStr, nonestr, NoneBytes, nonebytes, StrBytes, strbytes,
+NoneStrBytes, nonestrbytes, OptionalInt, optionalint, OptionalIntFloat,
+optionalintfloat, OptionalIntFloatDecimal, optionalintfloatdecimal,
+StrIntFloat, strintfloat, StrictBool, strictbool, PositiveInt,
+positiveint, NegativeInt, negativeint, NonPositiveInt, nonpositiveint,
+NonNegativeInt, nonnegativeint, StrictInt, strictint, ConstrainedFloat,
+constrainedfloat, NegativeFloat, negativefloat, NonPositiveFloat,
+nonpositivefloat, NonNegativeFloat, nonnegativefloat, StrictFloat,
+strictfloat, StrictBytes, strictbytes, StrictStr, strictstr, UUID1,
+uuid1, UUID3, uuid3, UUID4, uuid4, UUID5, uuid5, FilePath, filepath,
+DirectoryPath, directorypath, Json, json, PastDate, pastdate,
+FutureDate, futuredate, NDArray, ndarray, ndArray, H5Dataset, h5dataset.</p>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">sdRDM</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Richard Schoemig.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/_getstarted/02_MarkdownSyntax.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
