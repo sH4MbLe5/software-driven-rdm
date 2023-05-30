@@ -309,7 +309,7 @@ class DataModel(pydantic.BaseModel):
 
         if isinstance(value, np.ndarray):
             return value.tolist()
-
+        
         return str(value)
 
     def yaml(self, **kwargs):
